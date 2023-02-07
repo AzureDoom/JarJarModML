@@ -3,11 +3,14 @@ buildscript {
         maven { url = 'https://maven.minecraftforge.net' }
         mavenCentral()
         maven { url = 'https://maven.parchmentmc.org' }
+        maven { url = "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath 'org.parchmentmc:librarian:1.+'
         classpath 'org.spongepowered:mixingradle:0.7.+'
+        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
+        classpath "com.modrinth.minotaur:Minotaur:2.+"
     }
 }
 apply plugin: 'java'
@@ -16,6 +19,8 @@ apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 apply plugin: 'org.parchmentmc.librarian.forgegradle'
+apply plugin: "com.modrinth.minotaur"
+apply plugin: 'com.matthewprenger.cursegradle'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
@@ -107,3 +112,48 @@ mixin {
 jar.finalizedBy('reobfJar')
 
 
+if (file('key.properties').exists()) {
+    curseforge {
+
+        def curseProp = new Properties()
+        File secretPropsFile = file("key.properties")
+        curseProp.load(secretPropsFile.newInputStream())
+
+        project {
+            apiKey = curseProp.getProperty('curseKey')
+            id = "394527"
+            releaseType = "release"
+            changelogType = 'text'
+            changelog = file('CHANGELOG.txt')
+            addGameVersion("1.19.3")
+            addGameVersion("Forge")
+            addGameVersion("Java 17")
+
+            relations {
+                requiredDependency 'fabric-api'
+                requiredDependency 'azurelib'
+            }
+        }
+    }
+}
+
+if (file('key.properties').exists()) {
+    modrinth {
+        def modrinthProp = new Properties()
+        File secretPropsFile = file("key.properties")
+        modrinthProp.load(secretPropsFile.newInputStream())
+
+        token = modrinthProp.getProperty('modrinthKey')
+        projectId = 'Zhqc8UeQ'
+        versionNumber = project.version
+        versionName = 'Forge 1.19.3'
+        uploadFile = jar
+        changelog = rootProject.file("changelog.txt").text
+        gameVersions = ['1.19.3']
+        loaders = ['forge']
+        dependencies {
+            required.project "azurelib"
+            required.project "fabric-api"
+        }
+    }
+}

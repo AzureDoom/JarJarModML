@@ -1,0 +1,10 @@
+{
+  "type": "jarjarbinks:mobspawns",
+  "biomes": "#minecraft:allows_surface_slime_spawns",
+  "spawn": {
+    "type": "jarjarbinks:arachnotron",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 4
+  }
+}

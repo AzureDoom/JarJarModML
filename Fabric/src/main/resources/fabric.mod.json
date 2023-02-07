@@ -1,44 +1,41 @@
 {
-    "schemaVersion": 1,
-    "id": "jarjarbinks",
-    "version": "${version}",
-  
-    "name": "Jar Jar Binks Mod",
-    "description": "A revival of my old Jar Jar Binks mod.",
-    "authors": [
-      "AzureDoom"
+  "schemaVersion": 1,
+  "id": "jarjarbinks",
+  "version": "${version}",
+  "name": "Jar Jar Binks Mod",
+  "description": "A revival of my old Jar Jar Binks mod.",
+  "authors": [
+    "AzureDoom"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/jar-jar-binks",
+    "sources": "https://github.com/AzureDoom/JarJarModML"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "mod.azure.jarjarbinks.JarJarBinksMod"
     ],
-    "contact": {
-      "homepage": "https://modrinth.com/mod/jar-jar-binks",
-      "sources": "https://github.com/AzureDoom/JarJarModML"
-    },
-  
-    "license": "MIT",
-    "icon": "icon.png",
-  
-    "environment": "*",
-    "entrypoints": {
-      "main": [
-        "mod.azure.jarjarbinks.JarJarBinksMod"
-      ],
-      "client" : [
-        "mod.azure.jarjarbinks.client.JarJarBinksFabricClient"
-      ]
-    },
-    "mixins": [
-      "jarjarbinks.mixins.json",
-      "jarjarbinks.fabric.mixins.json"
-    ],
-    "depends": {
-      "fabricloader": ">=0.14",
-      "fabric": "*",
-      "minecraft": "1.19.3",
-      "azurelib": ">=1.0.2",
-      "java": ">=17"
-    },
-    "suggests": {
-      "another-mod": "*"
-    },
-    "accessWidener": "jarjarbinks_common.accesswidener"
-  }
+    "client": [
+      "mod.azure.jarjarbinks.client.JarJarBinksFabricClient"
+    ]
+  },
+  "mixins": [
+    "jarjarbinks.mixins.json",
+    "jarjarbinks.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": "1.19.3",
+    "azurelib": ">=1.0.2",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  },
+  "accessWidener": "jarjarbinks_common.accesswidener"
+}
   

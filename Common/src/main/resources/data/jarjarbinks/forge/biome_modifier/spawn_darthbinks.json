@@ -1,0 +1,10 @@
+{
+  "type": "jarjarbinks:mobspawns",
+  "biomes": "#minecraft:is_nether",
+  "spawn": {
+    "type": "jarjarbinks:darthbinks",
+    "maxCount": 1,
+    "minCount": 1,
+    "weight": 4
+  }
+}
