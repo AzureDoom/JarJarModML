@@ -80,7 +80,7 @@ if (file('key.properties').exists()) {
             addGameVersion("Java 17")
 
             relations {
-                requiredDependency 'fabric-api'
+                requiredDependency 'qsl'
                 requiredDependency 'azurelib'
             }
             mainArtifact(remapJar)
@@ -112,7 +112,7 @@ if (file('key.properties').exists()) {
         loaders = ['quilt']
         dependencies {
             required.project "azurelib"
-            required.project "fabric-api"
+            required.project "qsl"
         }
     }
 }
