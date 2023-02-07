@@ -85,7 +85,7 @@ configurations {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    implementation fg.deobf("software.bernie.geckolib:geckolib-forge-1.19.3:${geckolib_version_forge}")
+    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.19.3:${azurelib_version_forge}")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 }
 

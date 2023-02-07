@@ -48,7 +48,7 @@ dependencies {
 	compileOnly group:'com.google.auto.service', name:'auto-service', version:'1.0.1'
 	annotationProcessor group:'com.google.auto.service', name:'auto-service', version:'1.0.1'
 
-    modImplementation "software.bernie.geckolib:geckolib-quilt-1.19.3:${geckolib_version_quilt}"
+    modImplementation "mod.azure.azurelib:azurelib-fabric-1.19.3:${azurelib_version_fabric}"
 }
 
 loom {
