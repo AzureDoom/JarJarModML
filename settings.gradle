@@ -36,5 +36,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'Geckolib-MultiloaderExample'
+rootProject.name = 'JarJarBinks-Multiloader'
 include("Common", "Forge", "Quilt", "Fabric")
