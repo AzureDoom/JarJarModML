@@ -130,7 +130,6 @@ if (file('key.properties').exists()) {
             addGameVersion("Java 17")
 
             relations {
-                requiredDependency 'fabric-api'
                 requiredDependency 'azurelib'
             }
         }
@@ -153,7 +152,6 @@ if (file('key.properties').exists()) {
         loaders = ['forge']
         dependencies {
             required.project "azurelib"
-            required.project "fabric-api"
         }
     }
 }
