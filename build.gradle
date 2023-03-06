@@ -70,6 +70,7 @@ subprojects {
         maven { url "https://maven.architectury.dev/" }
         maven { url 'https://dl.cloudsmith.io/public/azuredoom-mods/azurelib/maven/' }
         maven { url 'https://maven.terraformersmc.com/' }
+        maven { url "https://api.modrinth.com/maven" }
 
     }
 
