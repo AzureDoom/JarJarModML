@@ -1,6 +1,8 @@
 package mod.azure.jarjarbinks;
 
+import eu.midnightdust.lib.config.MidnightConfig;
 import mod.azure.azurelib.items.AzureSpawnEgg;
+import mod.azure.jarjarbinks.config.JarJarConfig;
 import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
 import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
 import mod.azure.jarjarbinks.registry.ModEntitySpawning;
@@ -37,6 +39,7 @@ public class JarJarBinksMod implements ModInitializer {
     @Override
     public void onInitialize(ModContainer container) {
         CommonClass.init();
+        MidnightConfig.init(Constants.MOD_ID, JarJarConfig.class);
         ModEntitySpawning.addSpawnEntries();
         Registry.register(BuiltInRegistries.ITEM, Constants.rl("jarjar_spawn_egg"),
                 JARJAR_SPAWN_EGG);

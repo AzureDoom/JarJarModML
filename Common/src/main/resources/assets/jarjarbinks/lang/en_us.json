@@ -2,5 +2,8 @@
 	"entity.jarjarbinks.jarjar": "Jar Jar Binks",
 	"entity.jarjarbinks.darthbinks": "Darth Binks",
 	"item.jarjarbinks.jarjar_spawn_egg": "Jar Jar Binks Egg",
-	"item.jarjarbinks.darthjarjar_spawn_egg": "Darth Binks Egg"
+	"item.jarjarbinks.darthjarjar_spawn_egg": "Darth Binks Egg",
+	"jarjarbinks.midnightconfig.jarjar_biomes": "Jar Jar Binks Biomes",
+	"jarjarbinks.midnightconfig.darthjarjar_biomes": "Darth Jar Jar Biomes",
+	"jarjarbinks.midnightconfig.title": "Jar Jar Binks Mod"
 }

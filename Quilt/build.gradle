@@ -24,6 +24,7 @@ dependencies {
     compileOnly project(":Common")
     compileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.0.1'
     annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.0.1'
+    modImplementation "maven.modrinth:midnightlib:1.1.0-fabric"
     modImplementation "mod.azure.azurelib:azurelib-fabric-1.19.3:${azurelib_version_fabric}"
     modImplementation("com.terraformersmc:modmenu:5.0.2")
 }
@@ -82,6 +83,7 @@ if (file('key.properties').exists()) {
             relations {
                 requiredDependency 'qsl'
                 requiredDependency 'azurelib'
+                requiredDependency 'midnightlib'
             }
             mainArtifact(remapJar)
 
@@ -112,6 +114,7 @@ if (file('key.properties').exists()) {
         loaders = ['quilt']
         dependencies {
             required.project "azurelib"
+            required.project "midnightlib"
             required.project "qsl"
         }
     }

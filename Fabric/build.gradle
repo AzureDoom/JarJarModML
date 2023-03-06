@@ -19,6 +19,7 @@ dependencies {
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     compileOnly project(":Common")
     modImplementation "mod.azure.azurelib:azurelib-fabric-1.19.3:${azurelib_version_fabric}"
+    modImplementation "maven.modrinth:midnightlib:1.1.0-fabric"
     modImplementation("com.terraformersmc:modmenu:5.0.2")
 }
 
@@ -77,6 +78,7 @@ if (file('key.properties').exists()) {
             relations {
                 requiredDependency 'fabric-api'
                 requiredDependency 'azurelib'
+                requiredDependency 'midnightlib'
             }
             mainArtifact(remapJar)
 
@@ -107,6 +109,7 @@ if (file('key.properties').exists()) {
         loaders = ['fabric']
         dependencies {
             required.project "azurelib"
+            required.project "midnightlib"
             required.project "fabric-api"
         }
     }
