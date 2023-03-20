@@ -1,4 +1,3 @@
-v.1.0.9
+v.1.0.10
 
-- Forge: Fixes Jar Jar Binks not spawming properly in swamps
-- Fabric/Quilt: Added Midnight Config requirement and adds Biome configs for Jar Jar and Darth Jar Jar
+- Updated to 1.19.4

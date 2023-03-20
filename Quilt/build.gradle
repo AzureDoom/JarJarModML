@@ -12,7 +12,6 @@ dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
     mappings loom.layered() {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${parchment_minecraft_version}:${parchment_version}@zip")
     }
     modImplementation "org.quiltmc:quilt-loader:${quilt_loader_version}"
     modImplementation("org.quiltmc:qsl:${quilt_stdlib_version}") {
@@ -24,9 +23,9 @@ dependencies {
     compileOnly project(":Common")
     compileOnly group: 'com.google.auto.service', name: 'auto-service', version: '1.0.1'
     annotationProcessor group: 'com.google.auto.service', name: 'auto-service', version: '1.0.1'
-    modImplementation "maven.modrinth:midnightlib:1.1.0-fabric"
-    modImplementation "mod.azure.azurelib:azurelib-fabric-1.19.3:${azurelib_version_fabric}"
-    modImplementation("com.terraformersmc:modmenu:5.0.2")
+    modImplementation "maven.modrinth:midnightlib:1.2.0-fabric"
+    modImplementation "mod.azure.azurelib:azurelib-fabric-1.19.4:${azurelib_version_fabric}"
+    modImplementation("com.terraformersmc:modmenu:6.1.0-rc.4")
 }
 
 loom {
@@ -76,7 +75,7 @@ if (file('key.properties').exists()) {
             releaseType = "release"
             changelogType = 'text'
             changelog = file('CHANGELOG.txt')
-            addGameVersion("1.19.3")
+            addGameVersion("1.19.4")
             addGameVersion("Quilt")
             addGameVersion("Java 17")
 
@@ -107,10 +106,10 @@ if (file('key.properties').exists()) {
         token = modrinthProp.getProperty('modrinthKey')
         projectId = 'Zhqc8UeQ'
         versionNumber = project.version
-        versionName = 'Quilt 1.19.3'
+        versionName = 'Quilt 1.19.4'
         uploadFile = remapJar
         changelog = rootProject.file("changelog.txt").text
-        gameVersions = ['1.19.3']
+        gameVersions = ['1.19.4']
         loaders = ['quilt']
         dependencies {
             required.project "azurelib"
