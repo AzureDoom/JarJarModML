@@ -37,4 +37,4 @@ pluginManagement {
 }
 
 rootProject.name = 'JarJarBinks-Multiloader'
-include("Common", "Forge", "Quilt", "Fabric")
+include("Common", "Forge", "Fabric")
