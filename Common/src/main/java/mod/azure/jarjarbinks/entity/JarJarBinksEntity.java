@@ -37,8 +37,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
 
-    protected final GroundPathNavigation landNavigation = new GroundPathNavigation(this, level);
-    protected final AmphibiousNavigation swimNavigation = new AmphibiousNavigation(this, level);
+    protected final GroundPathNavigation landNavigation = new GroundPathNavigation(this, this.getCommandSenderWorld());
+    protected final AmphibiousNavigation swimNavigation = new AmphibiousNavigation(this, this.getCommandSenderWorld());
     protected final MoveControl landMoveControl = new MoveControl(this);
     protected final LookControl landLookControl = new LookControl(this);
     protected final SmoothSwimmingMoveControl swimMoveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.5f, 1.0f,
