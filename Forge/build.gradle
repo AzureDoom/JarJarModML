@@ -94,7 +94,7 @@ repositories {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.20:${azurelib_version_forge}")
+    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.20.1:${azurelib_version_forge}")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 }
 
@@ -129,7 +129,7 @@ if (file('key.properties').exists()) {
             releaseType = "release"
             changelogType = 'text'
             changelog = file('CHANGELOG.txt')
-            addGameVersion("1.20")
+            addGameVersion("1.20.1")
             addGameVersion("Forge")
             addGameVersion("Java 17")
 
@@ -149,10 +149,10 @@ if (file('key.properties').exists()) {
         token = modrinthProp.getProperty('modrinthKey')
         projectId = 'Zhqc8UeQ'
         versionNumber = project.version
-        versionName = '1.20 Forge'
+        versionName = '1.20.1 Forge'
         uploadFile = jar
         changelog = rootProject.file("changelog.txt").text
-        gameVersions = ['1.20']
+        gameVersions = ['1.20.1']
         loaders = ['forge']
         dependencies {
             required.project "azurelib"

@@ -27,10 +27,10 @@
     "jarjarbinks.fabric.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14",
+    "fabricloader": ">=0.14.21",
     "fabric": "*",
-    "minecraft": "1.20",
-    "azurelib": ">=1.0.9",
+    "minecraft": ">=1.20.1",
+    "azurelib": ">=1.0.15",
     "java": ">=17"
   },
   "suggests": {
