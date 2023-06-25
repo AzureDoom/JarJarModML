@@ -15,7 +15,7 @@ javadoc.enabled(false)
 
 dependencies {
     compileOnly "org.spongepowered:mixin:0.8.5"
-    compileOnly "mod.azure.azurelib:azurelib-forge-1.20:${azurelib_version_forge}"
+    compileOnly "mod.azure.azurelib:azurelib-forge-1.20.1:${azurelib_version_forge}"
 }
 
 processResources {
