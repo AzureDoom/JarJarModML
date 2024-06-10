@@ -1,13 +1,13 @@
 package mod.azure.jarjarbinks.entity;
 
 import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
-import mod.azure.azurelib.common.internal.common.core.animatable.instance.AnimatableInstanceCache;
-import mod.azure.azurelib.common.internal.common.core.animation.AnimatableManager;
-import mod.azure.azurelib.common.internal.common.core.animation.Animation;
-import mod.azure.azurelib.common.internal.common.core.animation.AnimationController;
-import mod.azure.azurelib.common.internal.common.core.animation.RawAnimation;
-import mod.azure.azurelib.common.internal.common.core.object.PlayState;
 import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
+import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
+import mod.azure.azurelib.core.animation.AnimatableManager;
+import mod.azure.azurelib.core.animation.Animation;
+import mod.azure.azurelib.core.animation.AnimationController;
+import mod.azure.azurelib.core.animation.RawAnimation;
+import mod.azure.azurelib.core.object.PlayState;
 import mod.azure.jarjarbinks.registry.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -136,11 +136,6 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
     }
 
     @Override
-    public float getEyeHeight(@NotNull Pose pose) {
-        return 1.74F;
-    }
-
-    @Override
     protected SoundEvent getAmbientSound() {
         return ModSounds.JARNORMAL.get();
     }
@@ -156,8 +151,8 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
     }
 
     @Override
-    public @NotNull EntityDimensions getDimensions(@NotNull Pose pose) {
-        return this.wasEyeInWater ? EntityDimensions.scalable(1.5f, 0.8f) : super.getDimensions(pose);
+    public @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
+        return this.wasEyeInWater ? EntityDimensions.scalable(1.5f, 0.8f) : super.getDefaultDimensions(pose);
     }
 
 }
