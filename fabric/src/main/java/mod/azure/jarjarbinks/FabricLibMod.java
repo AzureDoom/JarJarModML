@@ -50,9 +50,9 @@ public final class FabricLibMod implements ModInitializer {
 
     public static void addSpawnEntries() {
         BiomeModifications.addSpawn(BiomeSelectors.tag(CommonMod.JARJAR_BIOMES), MobCategory.MONSTER,
-                ModEntities.JARJAR, 50, 1, 1);
+                ModEntities.JARJAR, 4, 1, 1);
         BiomeModifications.addSpawn(BiomeSelectors.tag(CommonMod.DARTH_BIOMES), MobCategory.MONSTER,
-                ModEntities.DARTHJARJAR, 50, 1, 1);
+                ModEntities.DARTHJARJAR, 4, 1, 1);
         SpawnPlacements.register(ModEntities.JARJAR, SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn);
         SpawnPlacements.register(ModEntities.DARTHJARJAR, SpawnPlacementTypes.ON_GROUND,
