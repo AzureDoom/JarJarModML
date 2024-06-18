@@ -13,6 +13,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -52,9 +53,9 @@ public final class FabricLibMod implements ModInitializer {
                 ModEntities.JARJAR, 50, 1, 1);
         BiomeModifications.addSpawn(BiomeSelectors.tag(CommonMod.DARTH_BIOMES), MobCategory.MONSTER,
                 ModEntities.DARTHJARJAR, 50, 1, 1);
-        SpawnPlacements.register(ModEntities.JARJAR, SpawnPlacements.Type.ON_GROUND,
+        SpawnPlacements.register(ModEntities.JARJAR, SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn);
-        SpawnPlacements.register(ModEntities.DARTHJARJAR, SpawnPlacements.Type.ON_GROUND,
+        SpawnPlacements.register(ModEntities.DARTHJARJAR, SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn);
     }
 }

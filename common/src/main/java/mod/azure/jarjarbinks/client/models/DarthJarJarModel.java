@@ -2,7 +2,7 @@ package mod.azure.jarjarbinks.client.models;
 
 import mod.azure.azurelib.common.api.client.model.GeoModel;
 import mod.azure.azurelib.common.internal.common.constant.DataTickets;
-import mod.azure.azurelib.common.internal.common.core.animation.AnimationState;
+import mod.azure.azurelib.core.animation.AnimationState;
 import mod.azure.jarjarbinks.CommonMod;
 import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
 import net.minecraft.client.renderer.RenderType;

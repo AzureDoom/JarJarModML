@@ -1,6 +1,6 @@
 {
-  "replace": "false",
   "values": [
+    "#minecraft:allows_surface_slime_spawns",
     "minecraft:mangrove_swamp",
     "minecraft:swamp"
   ]
