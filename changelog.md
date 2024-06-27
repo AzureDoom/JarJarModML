@@ -1,5 +1,4 @@
-v1.0.1
+v1.0.2
 
-- Ported to 1.21
-- Made Fabric Weight match NeoForges much lower value now
+- Rewrote internals using newest AzureLib common system.
 
