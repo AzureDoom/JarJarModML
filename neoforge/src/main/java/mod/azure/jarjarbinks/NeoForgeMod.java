@@ -12,6 +12,7 @@ import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -26,6 +27,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -51,6 +53,8 @@ public final class NeoForgeMod {
     public static DeferredRegister<StructureType<?>> structureTypeDeferredRegister = DeferredRegister.create(Registries.STRUCTURE_TYPE, CommonMod.MOD_ID);
     public static DeferredRegister<ParticleType<?>> particleTypeDeferredRegister = DeferredRegister.create(Registries.PARTICLE_TYPE, CommonMod.MOD_ID);
     public static DeferredRegister<CreativeModeTab> creativeModeTabDeferredRegister = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CommonMod.MOD_ID);
+    public static DeferredRegister<MobEffect> statusEffectDeferredRegister = DeferredRegister.create(Registries.MOB_EFFECT, CommonMod.MOD_ID);
+    public static DeferredRegister<Fluid> fluidDeferredRegister = DeferredRegister.create(Registries.FLUID, CommonMod.MOD_ID);
 
     public NeoForgeMod(IEventBus modEventBus) {
         AzureLib.initialize();
@@ -76,6 +80,10 @@ public final class NeoForgeMod {
             NeoForgeMod.particleTypeDeferredRegister.register(modEventBus);
         if (NeoForgeMod.creativeModeTabDeferredRegister != null)
             NeoForgeMod.creativeModeTabDeferredRegister.register(modEventBus);
+        if (NeoForgeMod.statusEffectDeferredRegister != null)
+            NeoForgeMod.statusEffectDeferredRegister.register(modEventBus);
+        if (NeoForgeMod.fluidDeferredRegister != null)
+            NeoForgeMod.fluidDeferredRegister.register(modEventBus);
         modEventBus.addListener(this::addCreativeTabs);
         modEventBus.addListener(this::createEntityAttributes);
         modEventBus.addListener(this::createSpawnPlacements);

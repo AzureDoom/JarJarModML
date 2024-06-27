@@ -1,10 +1,12 @@
 package mod.azure.jarjarbinks;
 
+import com.mojang.serialization.MapCodec;
 import mod.azure.azurelib.common.platform.services.CommonRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -16,7 +18,9 @@ import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -60,8 +64,12 @@ public class NeoForgeCommonRegistry implements CommonRegistry {
     }
 
     @Override
-    public <T extends StructureType<?>> Supplier<T> registerStructure(String modID, String structureName, Supplier<T> structure) {
-        return NeoForgeMod.structureTypeDeferredRegister.register(structureName, structure);
+    public <T extends Structure> Supplier<StructureType<T>> registerStructure(String modID, String structureName, MapCodec<T> structure) {
+        return NeoForgeMod.structureTypeDeferredRegister.register(structureName, () -> typeConvert(structure));
+    }
+
+    private static <S extends Structure> StructureType<S> typeConvert(MapCodec<S> codec) {
+        return () -> codec;
     }
 
     @Override
@@ -72,6 +80,16 @@ public class NeoForgeCommonRegistry implements CommonRegistry {
     @Override
     public <T extends CreativeModeTab> Supplier<T> registerCreativeModeTab(String modID, String tabName, Supplier<T> tab) {
         return NeoForgeMod.creativeModeTabDeferredRegister.register(tabName, tab);
+    }
+
+    @Override
+    public <T extends MobEffect> Holder<T> registerStatusEffect(String modID, String effectName, Supplier<T> statusEffect) {
+        return (Holder<T>) NeoForgeMod.statusEffectDeferredRegister.register(effectName, statusEffect);
+    }
+
+    @Override
+    public <T extends Fluid> Supplier<T> registerFluid(String modID, String fluidName, Supplier<T> fluid) {
+        return NeoForgeMod.fluidDeferredRegister.register(fluidName, fluid);
     }
 
     @Override
