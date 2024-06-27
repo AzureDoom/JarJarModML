@@ -1,5 +1,8 @@
 package mod.azure.jarjarbinks;
 
+import mod.azure.jarjarbinks.registry.ModEntities;
+import mod.azure.jarjarbinks.registry.ModItems;
+import mod.azure.jarjarbinks.registry.ModSounds;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -14,5 +17,11 @@ public class CommonMod {
 
     public static ResourceLocation modResource(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    }
+
+    public static void initRegistries(){
+        ModEntities.init();
+        ModSounds.init();
+        ModItems.init();
     }
 }

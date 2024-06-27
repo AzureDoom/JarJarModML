@@ -1,13 +1,33 @@
 package mod.azure.jarjarbinks.registry;
 
+import mod.azure.azurelib.common.api.common.registry.CommonEntityRegistryInterface;
+import mod.azure.jarjarbinks.CommonMod;
 import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
 import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
-public record ModEntities() {
-    public static EntityType<JarJarBinksEntity> JARJAR = EntityType.Builder.of(JarJarBinksEntity::new,
-            MobCategory.CREATURE).sized(0.6f, 1.95F).build("jarjar");
-    public static EntityType<DarthJarJarEntity> DARTHJARJAR = EntityType.Builder.of(DarthJarJarEntity::new,
-            MobCategory.MONSTER).sized(0.6f, 1.95F).build("darthbinks");
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
+
+public record ModEntities() implements CommonEntityRegistryInterface {
+    public static final Supplier<EntityType<JarJarBinksEntity>> JARJAR = CommonEntityRegistryInterface.registerEntity(
+            CommonMod.MOD_ID,
+            "jarjar",
+            JarJarBinksEntity::new,
+            MobCategory.CREATURE,
+            0.7f,
+            1.95F);
+    public static final Supplier<EntityType<DarthJarJarEntity>> DARTHJARJAR = CommonEntityRegistryInterface.registerEntity(
+            CommonMod.MOD_ID,
+            "darthbinks",
+            DarthJarJarEntity::new,
+            MobCategory.MONSTER,
+            0.7f,
+            1.95F);
+
+    public static void init() {
+    }
 }

@@ -2,6 +2,7 @@ package mod.azure.jarjarbinks;
 
 import mod.azure.jarjarbinks.client.renders.DarthJarJarRender;
 import mod.azure.jarjarbinks.client.renders.JarJarRender;
+import mod.azure.jarjarbinks.registry.ModEntities;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -12,7 +13,7 @@ public class NeoForgeClientMod {
 
     @SubscribeEvent
     public static void registerRenderers(final EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(NeoForgeMod.JARJAR.get(), JarJarRender::new);
-        event.registerEntityRenderer(NeoForgeMod.DARTHJARJAR.get(), DarthJarJarRender::new);
+        event.registerEntityRenderer(ModEntities.JARJAR.get(), JarJarRender::new);
+        event.registerEntityRenderer(ModEntities.DARTHJARJAR.get(), DarthJarJarRender::new);
     }
 }

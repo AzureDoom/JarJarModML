@@ -1,10 +1,32 @@
 package mod.azure.jarjarbinks.registry;
 
-import mod.azure.azurelib.common.api.common.items.AzureSpawnEgg;
+import mod.azure.azurelib.common.api.common.registry.CommonItemRegistryInterface;
+import mod.azure.azurelib.common.platform.Services;
+import mod.azure.jarjarbinks.CommonMod;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 
-public record ModItems() {
-    public static final AzureSpawnEgg JARJAR_SPAWN_EGG = new AzureSpawnEgg(ModEntities.JARJAR, 0x8f3427, 0xe6b975);
-    public static final AzureSpawnEgg DARTHJARJAR_SPAWN_EGG = new AzureSpawnEgg(ModEntities.DARTHJARJAR, 0x8d3323,
-            0xe59b20);
+import java.util.function.Supplier;
+
+public record ModItems() implements CommonItemRegistryInterface {
+    public static final Supplier<SpawnEggItem> JARJAR_SPAWN_EGG = CommonItemRegistryInterface.registerItem(
+            CommonMod.MOD_ID,
+            "jarjar_spawn_egg",
+            Services.COMMON_REGISTRY.makeSpawnEggFor(
+                    ModEntities.JARJAR,
+                    0x8f3427,
+                    0xe6b975,
+                    new Item.Properties()));
+    public static final Supplier<SpawnEggItem> DARTHJARJAR_SPAWN_EGG = CommonItemRegistryInterface.registerItem(
+            CommonMod.MOD_ID,
+            "darthjarjar_spawn_egg",
+            Services.COMMON_REGISTRY.makeSpawnEggFor(
+                    ModEntities.DARTHJARJAR,
+                    0x8d3323,
+                    0xe59b20,
+                    new Item.Properties()));
+
+    public static void init() {
+    }
 
 }
