@@ -1,6 +1,6 @@
 package mod.azure.jarjarbinks;
 
-import mod.azure.azurelib.items.AzureSpawnEgg;
+import mod.azure.azurelib.items.NeoForgeAzureSpawnEgg;
 import mod.azure.jarjarbinks.client.renders.DarthJarJarRender;
 import mod.azure.jarjarbinks.client.renders.JarJarRender;
 import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
@@ -34,11 +34,11 @@ public class JarJarBinksMod {
     public static final RegistryObject<EntityType<JarJarBinksEntity>> JARJAR = ENTITY_TYPE_DEFERRED_REGISTER.register("jarjar",
             () -> EntityType.Builder.of(JarJarBinksEntity::new, MobCategory.MONSTER).sized(0.6f, 1.95F).build("jarjar"));
     public static final RegistryObject<Item> JARJAR_SPAWN_EGG = ITEMS_DEFERRED_REGISTER.register("jarjar_spawn_egg",
-            () -> new AzureSpawnEgg(JarJarBinksMod.JARJAR, 0x8f3427, 0xe6b975));
+            () -> new NeoForgeAzureSpawnEgg(JarJarBinksMod.JARJAR, 0x8f3427, 0xe6b975));
     public static final RegistryObject<EntityType<DarthJarJarEntity>> DARTHJARJAR = ENTITY_TYPE_DEFERRED_REGISTER.register("darthbinks",
             () -> EntityType.Builder.of(DarthJarJarEntity::new, MobCategory.MONSTER).sized(0.6f, 1.95F).build("darthbinks"));
     public static final RegistryObject<Item> DARTHJARJAR_SPAWN_EGG = ITEMS_DEFERRED_REGISTER.register("darthjarjar_spawn_egg",
-            () -> new AzureSpawnEgg(JarJarBinksMod.DARTHJARJAR, 0x8d3323, 0xe59b20));
+            () -> new NeoForgeAzureSpawnEgg(JarJarBinksMod.DARTHJARJAR, 0x8d3323, 0xe59b20));
     public static final RegistryObject<SoundEvent> JARDEATH = SOUNDS_DEFERRED_REGISTER.register("jarjar.howwude",
             () -> ModSoundEvents.JARDEATH.createVariableRangeEvent(Constants.rl("jarjar.howwude")));
     public static final RegistryObject<SoundEvent> JARNORMAL = SOUNDS_DEFERRED_REGISTER.register("jarjar.jarjarluvsyou",

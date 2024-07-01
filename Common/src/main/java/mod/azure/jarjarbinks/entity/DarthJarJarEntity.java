@@ -2,8 +2,8 @@ package mod.azure.jarjarbinks.entity;
 
 import mod.azure.azurelib.animatable.GeoEntity;
 import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
-import mod.azure.azurelib.core.animation.AnimatableManager.ControllerRegistrar;
-import mod.azure.azurelib.core.animation.Animation.LoopType;
+import mod.azure.azurelib.core.animation.AnimatableManager;
+import mod.azure.azurelib.core.animation.Animation;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.core.object.PlayState;
@@ -43,12 +43,12 @@ public class DarthJarJarEntity extends JarJarBinksEntity implements GeoEntity {
     }
 
     @Override
-    public void registerControllers(ControllerRegistrar controllers) {
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(new AnimationController<>(this, "idle_controller", 0, event -> {
             return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
         })).add(new AnimationController<>(this, "attack_controller", 0, event -> {
             if (this.swinging)
-                return event.setAndContinue(RawAnimation.begin().then("attack", LoopType.PLAY_ONCE));
+                return event.setAndContinue(RawAnimation.begin().then("attack", Animation.LoopType.PLAY_ONCE));
 
             return PlayState.STOP;
         }));
