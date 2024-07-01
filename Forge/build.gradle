@@ -1,26 +1,10 @@
-buildscript {
-    repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
-        mavenCentral()
-        maven { url = 'https://maven.parchmentmc.org' }
-        maven { url = "https://plugins.gradle.org/m2/" }
-    }
-    dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
-        classpath 'org.parchmentmc:librarian:1.+'
-        classpath 'org.spongepowered:mixingradle:0.7.+'
-        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
-        classpath "com.modrinth.minotaur:Minotaur:2.+"
-    }
+plugins {
+    id 'idea'
+    id 'maven-publish'
+    id 'net.minecraftforge.gradle'
+    id 'org.spongepowered.mixin'
+    id 'me.modmuss50.mod-publish-plugin' version "${modmuss50_mod_publish_version}"
 }
-apply plugin: 'java'
-apply plugin: 'net.minecraftforge.gradle'
-apply plugin: 'eclipse'
-apply plugin: 'maven-publish'
-apply plugin: 'org.spongepowered.mixin'
-apply plugin: 'org.parchmentmc.librarian.forgegradle'
-apply plugin: "com.modrinth.minotaur"
-apply plugin: 'com.matthewprenger.cursegradle'
 
 archivesBaseName = "${mod_name}-forge-${minecraft_version}"
 
@@ -87,14 +71,13 @@ configurations {
 }
 
 repositories {
-    maven { url "https://dl.cloudsmith.io/public/azuredoom-mods/azurelib/maven/" }
-    maven { url "https://maven.cloudsmith.io/azuredoom-mods/azurelib/" }
+    maven { url "https://libs.azuredoom.com:4443/mods" }
 }
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":Common")
-    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.20.1:${azurelib_version_forge}")
+    implementation fg.deobf("mod.azure.azurelib:azurelib-neo-1.20.1:${azurelib_version_forge}")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 }
 
@@ -115,47 +98,33 @@ mixin {
 
 jar.finalizedBy('reobfJar')
 
-
 if (file('key.properties').exists()) {
-    curseforge {
-
-        def curseProp = new Properties()
+    publishMods {
+        def releaseProp = new Properties()
         File secretPropsFile = file("key.properties")
-        curseProp.load(secretPropsFile.newInputStream())
+        releaseProp.load(secretPropsFile.newInputStream())
+        file = jar.archiveFile
+        changelog = rootProject.file("changelog.txt").text
+        type = STABLE
+        modLoaders.add("neoforge")
+        modLoaders.add("forge")
 
-        project {
-            apiKey = curseProp.getProperty('curseKey')
-            id = "394527"
-            releaseType = "release"
-            changelogType = 'text'
-            changelog = file('CHANGELOG.txt')
-            addGameVersion("1.20.1")
-            addGameVersion("Forge")
-            addGameVersion("Java 17")
-
-            relations {
-                requiredDependency 'azurelib'
+        curseforge {
+            projectId = project.curseforgeID
+            projectSlug = project.projectSlug
+            accessToken = releaseProp.getProperty("curseKey")
+            minecraftVersions.add("${minecraft_version}")
+            requires {
+                slug = "azurelib"
             }
         }
-    }
-}
-
-if (file('key.properties').exists()) {
-    modrinth {
-        def modrinthProp = new Properties()
-        File secretPropsFile = file("key.properties")
-        modrinthProp.load(secretPropsFile.newInputStream())
-
-        token = modrinthProp.getProperty('modrinthKey')
-        projectId = 'Zhqc8UeQ'
-        versionNumber = project.version
-        versionName = '1.20.1 Forge'
-        uploadFile = jar
-        changelog = rootProject.file("changelog.txt").text
-        gameVersions = ['1.20.1']
-        loaders = ['forge']
-        dependencies {
-            required.project "azurelib"
+        modrinth {
+            projectId = project.modrinthID
+            accessToken = releaseProp.getProperty('modrinthKey')
+            minecraftVersions.add("${minecraft_version}")
+            requires {
+                slug = "azurelib"
+            }
         }
     }
 }

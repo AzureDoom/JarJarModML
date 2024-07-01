@@ -1,9 +1,8 @@
 plugins {
-    id 'fabric-loom' version '1.0-SNAPSHOT'
+    id 'fabric-loom'
     id 'maven-publish'
     id 'idea'
-    id 'com.matthewprenger.cursegradle' version '1.4.0'
-    id "com.modrinth.minotaur" version "2.+"
+    id 'me.modmuss50.mod-publish-plugin' version "${modmuss50_mod_publish_version}"
 }
 
 archivesBaseName = "${mod_name}-fabric-${minecraft_version}"
@@ -15,10 +14,8 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     compileOnly project(":Common")
     modImplementation "mod.azure.azurelib:azurelib-fabric-1.20.1:${azurelib_version_fabric}"
-    modImplementation "maven.modrinth:midnightlib:1.4.0"
     modImplementation("com.terraformersmc:modmenu:7.0.0-beta.2")
 }
 
@@ -58,58 +55,38 @@ tasks.withType(JavaCompile) {
 }
 
 if (file('key.properties').exists()) {
-    curseforge {
-
-        def curseProp = new Properties()
+    publishMods {
+        def releaseProp = new Properties()
         File secretPropsFile = file("key.properties")
-        curseProp.load(secretPropsFile.newInputStream())
-
-        project {
-            apiKey = curseProp.getProperty('curseKey')
-            id = "394527"
-            releaseType = "release"
-            changelogType = 'text'
-            changelog = file('CHANGELOG.txt')
-            addGameVersion("1.20.1")
-            addGameVersion("Fabric")
-            addGameVersion("Java 17")
-
-            relations {
-                requiredDependency 'fabric-api'
-                requiredDependency 'azurelib'
-                requiredDependency 'midnightlib'
-            }
-            mainArtifact(remapJar)
-
-            afterEvaluate {
-                uploadTask.dependsOn("remapJar")
-            }
-        }
-        options {
-            //debug = true
-            forgeGradleIntegration = false
-        }
-    }
-}
-
-if (file('key.properties').exists()) {
-    modrinth {
-        def modrinthProp = new Properties()
-        File secretPropsFile = file("key.properties")
-        modrinthProp.load(secretPropsFile.newInputStream())
-
-        token = modrinthProp.getProperty('modrinthKey')
-        projectId = 'Zhqc8UeQ'
-        versionNumber = project.version
-        versionName = 'Fabric 1.20.1'
-        uploadFile = remapJar
+        releaseProp.load(secretPropsFile.newInputStream())
+        file = jar.archiveFile
         changelog = rootProject.file("changelog.txt").text
-        gameVersions = ['1.20.1']
-        loaders = ['fabric']
-        dependencies {
-            required.project "azurelib"
-            required.project "midnightlib"
-            required.project "fabric-api"
+        type = STABLE
+        modLoaders.add("neoforge")
+        modLoaders.add("forge")
+
+        curseforge {
+            projectId = project.curseforgeID
+            projectSlug = project.projectSlug
+            accessToken = releaseProp.getProperty("curseKey")
+            minecraftVersions.add("${minecraft_version}")
+            requires {
+                slug = "azurelib"
+            }
+            requires {
+                slug = "fabric-api"
+            }
+        }
+        modrinth {
+            projectId = project.modrinthID
+            accessToken = releaseProp.getProperty('modrinthKey')
+            minecraftVersions.add("${minecraft_version}")
+            requires {
+                slug = "azurelib"
+            }
+            requires {
+                slug = "fabric-api"
+            }
         }
     }
 }
