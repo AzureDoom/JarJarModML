@@ -1,7 +1,5 @@
 package mod.azure.jarjarbinks.registry;
 
-import mod.azure.azurelib.common.api.common.registry.CommonEntityRegistryInterface;
-import mod.azure.azurelib.common.api.common.registry.CommonSoundRegistryInterface;
 import mod.azure.jarjarbinks.CommonMod;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;

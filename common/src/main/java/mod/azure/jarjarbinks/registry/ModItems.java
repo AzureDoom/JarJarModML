@@ -1,8 +1,7 @@
 package mod.azure.jarjarbinks.registry;
 
-import mod.azure.azurelib.common.api.common.registry.CommonItemRegistryInterface;
-import mod.azure.azurelib.common.platform.Services;
 import mod.azure.jarjarbinks.CommonMod;
+import mod.azure.jarjarbinks.platform.Services;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 

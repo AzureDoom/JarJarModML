@@ -1,15 +1,11 @@
 package mod.azure.jarjarbinks.registry;
 
-import mod.azure.azurelib.common.api.common.registry.CommonEntityRegistryInterface;
 import mod.azure.jarjarbinks.CommonMod;
 import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
 import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public record ModEntities() implements CommonEntityRegistryInterface {
