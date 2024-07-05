@@ -1,4 +1,3 @@
-v1.0.3
+v1.0.4
 
-- Updated for changes within AzureLibs latest update 2.3.8
-
+- Fixes crash on startup due to registration.
