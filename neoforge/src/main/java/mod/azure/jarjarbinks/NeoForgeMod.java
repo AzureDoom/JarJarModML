@@ -34,7 +34,7 @@ import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.ModifiableBiomeInfo;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -89,13 +89,13 @@ public final class NeoForgeMod {
         modEventBus.addListener(this::createSpawnPlacements);
     }
 
-    public void createSpawnPlacements(SpawnPlacementRegisterEvent event) {
+    public void createSpawnPlacements(RegisterSpawnPlacementsEvent event) {
         event.register(ModEntities.JARJAR.get(), SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn,
-                SpawnPlacementRegisterEvent.Operation.AND);
+                RegisterSpawnPlacementsEvent.Operation.AND);
         event.register(ModEntities.DARTHJARJAR.get(), SpawnPlacementTypes.ON_GROUND,
                 Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn,
-                SpawnPlacementRegisterEvent.Operation.AND);
+                RegisterSpawnPlacementsEvent.Operation.AND);
     }
 
     public void createEntityAttributes(final EntityAttributeCreationEvent event) {
