@@ -10,10 +10,8 @@ import net.minecraft.world.level.biome.Biome;
 
 public class CommonMod {
     public static final String MOD_ID = "jarjarbinks";
-    public static final TagKey<Biome> JARJAR_BIOMES = TagKey.create(Registries.BIOME,
-            CommonMod.modResource("jarjarbiomes"));
-    public static final TagKey<Biome> DARTH_BIOMES = TagKey.create(Registries.BIOME,
-            CommonMod.modResource("darthbiomes"));
+    public static final TagKey<Biome> JARJAR_BIOMES = TagKey.create(Registries.BIOME, CommonMod.modResource("jarjarbiomes"));
+    public static final TagKey<Biome> DARTH_BIOMES = TagKey.create(Registries.BIOME, CommonMod.modResource("darthbiomes"));
 
     public static ResourceLocation modResource(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);

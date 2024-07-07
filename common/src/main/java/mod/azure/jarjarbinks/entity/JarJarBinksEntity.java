@@ -54,9 +54,13 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
     }
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
-        return LivingEntity.createLivingAttributes().add(Attributes.FOLLOW_RANGE, 50.0D).add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.1D).add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D).add(Attributes.ATTACK_DAMAGE, 1.0D);
+        return LivingEntity.createLivingAttributes()
+                .add(Attributes.FOLLOW_RANGE, 50.0D)
+                .add(Attributes.MAX_HEALTH, 15.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
+                .add(Attributes.MOVEMENT_SPEED, 0.25D)
+                .add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
     public static boolean canSpawn(EntityType<? extends JarJarBinksEntity> type, LevelAccessor world,
@@ -130,7 +134,6 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
         })).add(new AnimationController<>(this, "attack_controller", 0, event -> {
             if (this.swinging)
                 return event.setAndContinue(RawAnimation.begin().then("attack", Animation.LoopType.PLAY_ONCE));
-
             return PlayState.STOP;
         }));
     }

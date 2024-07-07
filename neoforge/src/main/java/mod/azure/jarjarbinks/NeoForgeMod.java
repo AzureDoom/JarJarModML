@@ -9,25 +9,16 @@ import mod.azure.jarjarbinks.registry.ModEntities;
 import mod.azure.jarjarbinks.registry.ModItems;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.Heightmap;
-import net.minecraft.world.level.levelgen.structure.StructureType;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.world.BiomeModifier;
@@ -43,47 +34,20 @@ import java.util.function.Supplier;
 
 @Mod(CommonMod.MOD_ID)
 public final class NeoForgeMod {
-    public static DeferredRegister<BlockEntityType<?>> blockEntityTypeDeferredRegister = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, CommonMod.MOD_ID);
-    public static DeferredRegister<Block> blockDeferredRegister = DeferredRegister.create(Registries.BLOCK, CommonMod.MOD_ID);
     public static DeferredRegister<EntityType<?>> entityTypeDeferredRegister = DeferredRegister.create(Registries.ENTITY_TYPE, CommonMod.MOD_ID);
-    public static DeferredRegister<ArmorMaterial> armorMaterialDeferredRegister = DeferredRegister.create(Registries.ARMOR_MATERIAL, CommonMod.MOD_ID);
     public static DeferredRegister<Item> itemDeferredRegister = DeferredRegister.create(Registries.ITEM, CommonMod.MOD_ID);
     public static DeferredRegister<SoundEvent> soundEventDeferredRegister= DeferredRegister.create(Registries.SOUND_EVENT, CommonMod.MOD_ID);
-    public static DeferredRegister<MenuType<?>> menuTypeDeferredRegister= DeferredRegister.create(Registries.MENU, CommonMod.MOD_ID);
-    public static DeferredRegister<StructureType<?>> structureTypeDeferredRegister = DeferredRegister.create(Registries.STRUCTURE_TYPE, CommonMod.MOD_ID);
-    public static DeferredRegister<ParticleType<?>> particleTypeDeferredRegister = DeferredRegister.create(Registries.PARTICLE_TYPE, CommonMod.MOD_ID);
-    public static DeferredRegister<CreativeModeTab> creativeModeTabDeferredRegister = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, CommonMod.MOD_ID);
-    public static DeferredRegister<MobEffect> statusEffectDeferredRegister = DeferredRegister.create(Registries.MOB_EFFECT, CommonMod.MOD_ID);
-    public static DeferredRegister<Fluid> fluidDeferredRegister = DeferredRegister.create(Registries.FLUID, CommonMod.MOD_ID);
 
     public NeoForgeMod(IEventBus modEventBus) {
         AzureLib.initialize();
         CommonMod.initRegistries();
         ModEntitySpawn.SERIALIZER.register(modEventBus);
-        if (NeoForgeMod.blockEntityTypeDeferredRegister != null)
-            NeoForgeMod.blockEntityTypeDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.blockDeferredRegister != null)
-            NeoForgeMod.blockDeferredRegister.register(modEventBus);
         if (NeoForgeMod.entityTypeDeferredRegister != null)
             NeoForgeMod.entityTypeDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.armorMaterialDeferredRegister != null)
-            NeoForgeMod.armorMaterialDeferredRegister.register(modEventBus);
         if (NeoForgeMod.itemDeferredRegister != null)
             NeoForgeMod.itemDeferredRegister.register(modEventBus);
         if (NeoForgeMod.soundEventDeferredRegister != null)
             NeoForgeMod.soundEventDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.menuTypeDeferredRegister != null)
-            NeoForgeMod.menuTypeDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.structureTypeDeferredRegister != null)
-            NeoForgeMod.structureTypeDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.particleTypeDeferredRegister != null)
-            NeoForgeMod.particleTypeDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.creativeModeTabDeferredRegister != null)
-            NeoForgeMod.creativeModeTabDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.statusEffectDeferredRegister != null)
-            NeoForgeMod.statusEffectDeferredRegister.register(modEventBus);
-        if (NeoForgeMod.fluidDeferredRegister != null)
-            NeoForgeMod.fluidDeferredRegister.register(modEventBus);
         modEventBus.addListener(this::addCreativeTabs);
         modEventBus.addListener(this::createEntityAttributes);
         modEventBus.addListener(this::createSpawnPlacements);

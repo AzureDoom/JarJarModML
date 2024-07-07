@@ -31,10 +31,13 @@ public class DarthJarJarEntity extends JarJarBinksEntity implements GeoEntity {
     }
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
-        return LivingEntity.createLivingAttributes().add(Attributes.FOLLOW_RANGE, 50.0D).add(Attributes.MAX_HEALTH,
-                40.0D).add(
-                Attributes.ATTACK_KNOCKBACK, 0.5D).add(Attributes.KNOCKBACK_RESISTANCE, 0.5D).add(
-                Attributes.MOVEMENT_SPEED, 0.35D).add(Attributes.ATTACK_DAMAGE, 1.5D);
+        return LivingEntity.createLivingAttributes()
+                .add(Attributes.FOLLOW_RANGE, 50.0D)
+                .add(Attributes.MAX_HEALTH, 40.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 0.5D)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+                .add(Attributes.MOVEMENT_SPEED, 0.35D)
+                .add(Attributes.ATTACK_DAMAGE, 1.5D);
     }
 
     @Override
@@ -50,7 +53,6 @@ public class DarthJarJarEntity extends JarJarBinksEntity implements GeoEntity {
                 new AnimationController<>(this, "attack_controller", 0, event -> {
                     if (this.swinging)
                         return event.setAndContinue(RawAnimation.begin().then("attack", Animation.LoopType.PLAY_ONCE));
-
                     return PlayState.STOP;
                 }));
     }
