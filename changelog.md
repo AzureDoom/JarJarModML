@@ -1,3 +1,4 @@
-v1.0.4
+v1.0.5
 
-- Fixes crash on startup due to registration.
+- Updates to changes in NeoForge event name changes.
+- General cleanup of code.
