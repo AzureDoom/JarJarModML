@@ -1,13 +1,11 @@
 package mod.azure.jarjarbinks.entity;
 
-import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
-import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
-import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager;
 import mod.azure.azurelib.core.animation.Animation;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.core.object.PlayState;
+import mod.azure.jarjarbinks.entity.animations.AnimationDispatcher;
 import mod.azure.jarjarbinks.registry.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
@@ -35,7 +33,7 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
+public class JarJarBinksEntity extends PathfinderMob  {
 
     protected final GroundPathNavigation landNavigation = new GroundPathNavigation(this, this.getCommandSenderWorld());
     protected final AmphibiousNavigation swimNavigation = new AmphibiousNavigation(this, this.getCommandSenderWorld());
@@ -44,13 +42,14 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
     protected final SmoothSwimmingMoveControl swimMoveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.5f, 1.0f,
             false);
     protected final SmoothSwimmingLookControl swimLookControl = new SmoothSwimmingLookControl(this, 10);
-    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
+    public AnimationDispatcher dispatcher;
 
     public JarJarBinksEntity(EntityType<? extends JarJarBinksEntity> entityType, Level worldIn) {
         super(entityType, worldIn);
         navigation = landNavigation;
         moveControl = landMoveControl;
         lookControl = landLookControl;
+        dispatcher = new AnimationDispatcher(this);
     }
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
@@ -105,7 +104,15 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.3D, false));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.3D, false) {
+
+            @Override
+            protected void checkAndPerformAttack(LivingEntity target) {
+                super.checkAndPerformAttack(target);
+                if (this.mob instanceof JarJarBinksEntity jarJarBinksEntity)
+                    jarJarBinksEntity.dispatcher.sendAttackAnimation();
+            }
+        });
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(2, new RandomSwimmingGoal(this, 1.0D, 10));
         this.goalSelector.addGoal(8, new LookAtPlayerGoal(this, Player.class, 8.0F));
@@ -121,21 +128,13 @@ public class JarJarBinksEntity extends PathfinderMob implements GeoEntity {
     }
 
     @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "idle_controller", 0, event -> {
-            if (this.wasEyeInWater)
-                return event.setAndContinue(RawAnimation.begin().thenLoop("idle_water"));
-            return event.setAndContinue(RawAnimation.begin().thenLoop("idle"));
-        })).add(new AnimationController<>(this, "attack_controller", 0, event -> {
-            if (this.swinging)
-                return event.setAndContinue(RawAnimation.begin().then("attack", Animation.LoopType.PLAY_ONCE));
-            return PlayState.STOP;
-        }));
+    public void tick() {
+        super.tick();
+        if (this.isInWater()) {
+            dispatcher.sendIdleWaterAnimation();
+        } else {
+            dispatcher.sendIdleAnimation();
+        }
     }
 
     @Override

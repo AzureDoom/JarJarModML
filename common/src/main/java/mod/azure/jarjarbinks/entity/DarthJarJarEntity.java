@@ -1,13 +1,11 @@
 package mod.azure.jarjarbinks.entity;
 
-import mod.azure.azurelib.common.api.common.animatable.GeoEntity;
-import mod.azure.azurelib.common.internal.common.util.AzureLibUtil;
-import mod.azure.azurelib.core.animatable.instance.AnimatableInstanceCache;
 import mod.azure.azurelib.core.animation.AnimatableManager;
 import mod.azure.azurelib.core.animation.Animation;
 import mod.azure.azurelib.core.animation.AnimationController;
 import mod.azure.azurelib.core.animation.RawAnimation;
 import mod.azure.azurelib.core.object.PlayState;
+import mod.azure.jarjarbinks.entity.animations.AnimationDispatcher;
 import mod.azure.jarjarbinks.registry.ModSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
@@ -22,12 +20,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 
-public class DarthJarJarEntity extends JarJarBinksEntity implements GeoEntity {
-
-    private final AnimatableInstanceCache cache = AzureLibUtil.createInstanceCache(this);
+public class DarthJarJarEntity extends JarJarBinksEntity {
 
     public DarthJarJarEntity(EntityType<? extends JarJarBinksEntity> entityType, Level worldIn) {
         super(entityType, worldIn);
+        dispatcher = new AnimationDispatcher(this);
     }
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
@@ -44,22 +41,6 @@ public class DarthJarJarEntity extends JarJarBinksEntity implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-    }
-
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(this, "idle_controller", 0,
-                event -> event.setAndContinue(RawAnimation.begin().thenLoop("idle")))).add(
-                new AnimationController<>(this, "attack_controller", 0, event -> {
-                    if (this.swinging)
-                        return event.setAndContinue(RawAnimation.begin().then("attack", Animation.LoopType.PLAY_ONCE));
-                    return PlayState.STOP;
-                }));
-    }
-
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return this.cache;
     }
 
     @Override

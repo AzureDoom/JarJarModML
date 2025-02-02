@@ -43,6 +43,14 @@
 					]
 				},
 				{
+					"name": "rightHand_Item",
+					"parent": "rightarm",
+					"pivot": [-6, 11, 0],
+					"cubes": [
+						{"origin": [-7, 11, -1], "size": [2, 2, 2], "uv": [55, 40]}
+					]
+				},
+				{
 					"name": "leftarm",
 					"parent": "bone",
 					"pivot": [5, 22, 0],
@@ -50,6 +58,14 @@
 					"cubes": [
 						{"origin": [4, 12, -2], "size": [4, 12, 4], "uv": [32, 48]},
 						{"origin": [4, 12, -2], "size": [4, 12, 4], "inflate": 0.25, "uv": [48, 48]}
+					]
+				},
+				{
+					"name": "leftHand_Item",
+					"parent": "leftarm",
+					"pivot": [6, 11, 0],
+					"cubes": [
+						{"origin": [5, 11, -1], "size": [2, 2, 2], "uv": [56, 43]}
 					]
 				},
 				{
