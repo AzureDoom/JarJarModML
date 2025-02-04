@@ -1,4 +1,4 @@
-v1.0.7
+v1.0.8
 
-- Updated to Azurelib 3.0.6
-- Added support for rendering held items.
+- Updated to Azurelib 3.0.7 changes.
+- Updated Offhand rendering display.
