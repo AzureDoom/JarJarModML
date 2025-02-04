@@ -30,7 +30,8 @@ public class JarJarRender extends AzEntityRenderer<JarJarBinksEntity> {
 						)
 						.setAnimatorProvider(JarJarAmimator::new)
 						.addRenderLayer(new AzBlockAndItemLayer<JarJarBinksEntity>() {
-							public ItemStack itemStackForBoneWithEntity(AzBone bone, JarJarBinksEntity animatable) {
+							@Override
+							public ItemStack itemStackForBone(AzBone bone, JarJarBinksEntity animatable) {
 								return switch (bone.getName()) {
 									case "rightHand_Item" -> animatable.getItemBySlot(EquipmentSlot.MAINHAND);
 									case "leftHand_Item" -> animatable.getItemBySlot(EquipmentSlot.OFFHAND);
@@ -39,32 +40,21 @@ public class JarJarRender extends AzEntityRenderer<JarJarBinksEntity> {
 							}
 
 							@Override
-							public void renderForBone(AzRendererPipelineContext<JarJarBinksEntity> context, AzBone bone) {
-								var stack = itemStackForBoneWithEntity(bone, context.animatable());
-
-								if (stack == null)
-									return;
-
-								context.poseStack().pushPose();
-								RenderUtils.translateAndRotateMatrixForBone(context.poseStack(), bone);
-
-								renderItemForBone(context, bone, stack);
-
-								context.poseStack().popPose();
+							protected ItemDisplayContext getTransformTypeForStack(AzBone bone, ItemStack stack, JarJarBinksEntity animatable) {
+								return switch (bone.getName()) {
+									case "rightHand_Item" -> ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
+									case "leftHand_Item" -> ItemDisplayContext.THIRD_PERSON_LEFT_HAND;
+									default -> ItemDisplayContext.NONE;
+								};
 							}
 
 							@Override
-							protected ItemDisplayContext getTransformTypeForStack(AzBone bone, ItemStack stack) {
-								return ItemDisplayContext.THIRD_PERSON_RIGHT_HAND;
-							}
-
-							@Override
-							protected void renderItemForBone(AzRendererPipelineContext<JarJarBinksEntity> context, AzBone bone, ItemStack itemStack) {
+							protected void renderItemForBone(AzRendererPipelineContext<JarJarBinksEntity> context, AzBone bone, ItemStack itemStack, JarJarBinksEntity animatable) {
 								context.poseStack().mulPose(Axis.XP.rotationDegrees(270));
 								context.poseStack().mulPose(Axis.YP.rotationDegrees(0));
 								context.poseStack().mulPose(Axis.ZP.rotationDegrees(0f));
 								context.poseStack().translate(0.0D, 0.1D, 0.1D);
-								super.renderItemForBone(context, bone, itemStack);
+								super.renderItemForBone(context, bone, itemStack, animatable);
 							}
 						})
 						.build(),
