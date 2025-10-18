@@ -2,6 +2,7 @@ plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
     id 'me.modmuss50.mod-publish-plugin'
+    id 'com.diffplug.spotless' version "7.0.0.BETA3"
 }
 
 neoForge {
@@ -48,11 +49,11 @@ dependencies {
     implementation "mod.azure.azurelib:azurelib-neo-${minecraft_version}:${azurelib_version}"
 }
 
-if (file('key.properties').exists()) {
+def keyPropsFile = new File(rootProject.projectDir, "key.properties")
+if (keyPropsFile.exists()) {
     publishMods {
         def releaseProp = new Properties()
-        File secretPropsFile = file("key.properties")
-        releaseProp.load(secretPropsFile.newInputStream())
+        releaseProp.load(new FileInputStream(keyPropsFile))
         file = jar.archiveFile
         changelog = rootProject.file("changelog.md").text
         type = STABLE

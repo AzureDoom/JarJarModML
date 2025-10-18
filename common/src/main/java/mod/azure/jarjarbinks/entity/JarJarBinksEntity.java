@@ -1,12 +1,5 @@
 package mod.azure.jarjarbinks.entity;
 
-import mod.azure.azurelib.core.animation.AnimatableManager;
-import mod.azure.azurelib.core.animation.Animation;
-import mod.azure.azurelib.core.animation.AnimationController;
-import mod.azure.azurelib.core.animation.RawAnimation;
-import mod.azure.azurelib.core.object.PlayState;
-import mod.azure.jarjarbinks.entity.animations.AnimationDispatcher;
-import mod.azure.jarjarbinks.registry.ModSounds;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
@@ -33,15 +26,30 @@ import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 
-public class JarJarBinksEntity extends PathfinderMob  {
+import mod.azure.jarjarbinks.entity.animations.AnimationDispatcher;
+import mod.azure.jarjarbinks.registry.ModSounds;
+
+public class JarJarBinksEntity extends PathfinderMob {
 
     protected final GroundPathNavigation landNavigation = new GroundPathNavigation(this, this.getCommandSenderWorld());
+
     protected final AmphibiousNavigation swimNavigation = new AmphibiousNavigation(this, this.getCommandSenderWorld());
+
     protected final MoveControl landMoveControl = new MoveControl(this);
+
     protected final LookControl landLookControl = new LookControl(this);
-    protected final SmoothSwimmingMoveControl swimMoveControl = new SmoothSwimmingMoveControl(this, 85, 10, 0.5f, 1.0f,
-            false);
+
+    protected final SmoothSwimmingMoveControl swimMoveControl = new SmoothSwimmingMoveControl(
+        this,
+        85,
+        10,
+        0.5f,
+        1.0f,
+        false
+    );
+
     protected final SmoothSwimmingLookControl swimLookControl = new SmoothSwimmingLookControl(this, 10);
+
     public AnimationDispatcher dispatcher;
 
     public JarJarBinksEntity(EntityType<? extends JarJarBinksEntity> entityType, Level worldIn) {
@@ -54,16 +62,21 @@ public class JarJarBinksEntity extends PathfinderMob  {
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.FOLLOW_RANGE, 50.0D)
-                .add(Attributes.MAX_HEALTH, 15.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.25D)
-                .add(Attributes.ATTACK_DAMAGE, 1.0D);
+            .add(Attributes.FOLLOW_RANGE, 50.0D)
+            .add(Attributes.MAX_HEALTH, 15.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 0.1D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.0D)
+            .add(Attributes.MOVEMENT_SPEED, 0.25D)
+            .add(Attributes.ATTACK_DAMAGE, 1.0D);
     }
 
-    public static boolean canSpawn(EntityType<? extends JarJarBinksEntity> type, LevelAccessor world,
-                                   MobSpawnType reason, BlockPos pos, RandomSource random) {
+    public static boolean canSpawn(
+        EntityType<? extends JarJarBinksEntity> type,
+        LevelAccessor world,
+        MobSpawnType reason,
+        BlockPos pos,
+        RandomSource random
+    ) {
         return world.getDifficulty() != Difficulty.PEACEFUL;
     }
 
@@ -99,8 +112,7 @@ public class JarJarBinksEntity extends PathfinderMob  {
     }
 
     @Override
-    protected void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {
-    }
+    protected void jumpInLiquid(@NotNull TagKey<Fluid> fluid) {}
 
     @Override
     protected void registerGoals() {
@@ -130,10 +142,12 @@ public class JarJarBinksEntity extends PathfinderMob  {
     @Override
     public void tick() {
         super.tick();
-        if (this.isInWater()) {
-            dispatcher.sendIdleWaterAnimation();
-        } else {
-            dispatcher.sendIdleAnimation();
+        if (this.level().isClientSide) {
+            if (this.isInWater()) {
+                dispatcher.sendIdleWaterAnimation();
+            } else {
+                dispatcher.sendIdleAnimation();
+            }
         }
     }
 

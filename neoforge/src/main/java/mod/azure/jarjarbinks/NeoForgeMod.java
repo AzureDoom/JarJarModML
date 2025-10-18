@@ -2,11 +2,7 @@ package mod.azure.jarjarbinks;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import mod.azure.azurelib.common.internal.common.AzureLib;
-import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
-import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
-import mod.azure.jarjarbinks.registry.ModEntities;
-import mod.azure.jarjarbinks.registry.ModItems;
+import mod.azure.azurelib.AzureLib;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -32,11 +28,28 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
+import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
+import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
+import mod.azure.jarjarbinks.registry.ModEntities;
+import mod.azure.jarjarbinks.registry.ModItems;
+
 @Mod(CommonMod.MOD_ID)
 public final class NeoForgeMod {
-    public static DeferredRegister<EntityType<?>> entityTypeDeferredRegister = DeferredRegister.create(Registries.ENTITY_TYPE, CommonMod.MOD_ID);
-    public static DeferredRegister<Item> itemDeferredRegister = DeferredRegister.create(Registries.ITEM, CommonMod.MOD_ID);
-    public static DeferredRegister<SoundEvent> soundEventDeferredRegister= DeferredRegister.create(Registries.SOUND_EVENT, CommonMod.MOD_ID);
+
+    public static DeferredRegister<EntityType<?>> entityTypeDeferredRegister = DeferredRegister.create(
+        Registries.ENTITY_TYPE,
+        CommonMod.MOD_ID
+    );
+
+    public static DeferredRegister<Item> itemDeferredRegister = DeferredRegister.create(
+        Registries.ITEM,
+        CommonMod.MOD_ID
+    );
+
+    public static DeferredRegister<SoundEvent> soundEventDeferredRegister = DeferredRegister.create(
+        Registries.SOUND_EVENT,
+        CommonMod.MOD_ID
+    );
 
     public NeoForgeMod(IEventBus modEventBus) {
         AzureLib.initialize();
@@ -54,12 +67,20 @@ public final class NeoForgeMod {
     }
 
     public void createSpawnPlacements(RegisterSpawnPlacementsEvent event) {
-        event.register(ModEntities.JARJAR.get(), SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn,
-                RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(ModEntities.DARTHJARJAR.get(), SpawnPlacementTypes.ON_GROUND,
-                Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn,
-                RegisterSpawnPlacementsEvent.Operation.AND);
+        event.register(
+            ModEntities.JARJAR.get(),
+            SpawnPlacementTypes.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            JarJarBinksEntity::canSpawn,
+            RegisterSpawnPlacementsEvent.Operation.AND
+        );
+        event.register(
+            ModEntities.DARTHJARJAR.get(),
+            SpawnPlacementTypes.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            JarJarBinksEntity::canSpawn,
+            RegisterSpawnPlacementsEvent.Operation.AND
+        );
     }
 
     public void createEntityAttributes(final EntityAttributeCreationEvent event) {
@@ -74,20 +95,35 @@ public final class NeoForgeMod {
         }
     }
 
-    record ModEntitySpawn(HolderSet<Biome> biomes, MobSpawnSettings.SpawnerData spawn) implements BiomeModifier {
+    record ModEntitySpawn(
+        HolderSet<Biome> biomes,
+        MobSpawnSettings.SpawnerData spawn
+    ) implements BiomeModifier {
 
         public static DeferredRegister<MapCodec<? extends BiomeModifier>> SERIALIZER = DeferredRegister.create(
-                NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS, CommonMod.MOD_ID);
+            NeoForgeRegistries.Keys.BIOME_MODIFIER_SERIALIZERS,
+            CommonMod.MOD_ID
+        );
 
-        static Supplier<MapCodec<ModEntitySpawn>> JARJAR_SPAWN_CODEC = SERIALIZER.register("mobspawns",
-                () -> RecordCodecBuilder.mapCodec(
-                        builder -> builder.group(Biome.LIST_CODEC.fieldOf("biomes").forGetter(ModEntitySpawn::biomes),
-                                MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawn").forGetter(
-                                        ModEntitySpawn::spawn)).apply(builder, ModEntitySpawn::new)));
-
+        static Supplier<MapCodec<ModEntitySpawn>> JARJAR_SPAWN_CODEC = SERIALIZER.register(
+            "mobspawns",
+            () -> RecordCodecBuilder.mapCodec(
+                builder -> builder.group(
+                    Biome.LIST_CODEC.fieldOf("biomes").forGetter(ModEntitySpawn::biomes),
+                    MobSpawnSettings.SpawnerData.CODEC.fieldOf("spawn")
+                        .forGetter(
+                            ModEntitySpawn::spawn
+                        )
+                ).apply(builder, ModEntitySpawn::new)
+            )
+        );
 
         @Override
-        public void modify(@NotNull Holder<Biome> biome, @NotNull Phase phase, ModifiableBiomeInfo.BiomeInfo.@NotNull Builder builder) {
+        public void modify(
+            @NotNull Holder<Biome> biome,
+            @NotNull Phase phase,
+            ModifiableBiomeInfo.BiomeInfo.@NotNull Builder builder
+        ) {
             if (phase == Phase.ADD && this.biomes.contains(biome)) {
                 builder.getMobSpawnSettings().addSpawn(MobCategory.MONSTER, this.spawn);
             }

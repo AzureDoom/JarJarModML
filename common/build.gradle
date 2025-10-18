@@ -1,10 +1,11 @@
 plugins {
     id 'multiloader-common'
     id 'net.neoforged.moddev'
+    id 'com.diffplug.spotless' version "7.0.0.BETA3"
 }
 
 neoForge {
-    neoFormVersion = "1.21-20240613.152323"
+    neoFormVersion = "1.21.1-20240808.144430"
 
     parchment {
         minecraftVersion = "${parchment_minecraft}"

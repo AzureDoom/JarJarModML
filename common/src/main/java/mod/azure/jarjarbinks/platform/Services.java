@@ -1,8 +1,8 @@
 package mod.azure.jarjarbinks.platform;
 
-import mod.azure.jarjarbinks.platform.services.CommonRegistry;
-
 import java.util.ServiceLoader;
+
+import mod.azure.jarjarbinks.platform.services.CommonRegistry;
 
 public final class Services {
 
@@ -14,7 +14,7 @@ public final class Services {
 
     public static <T> T load(Class<T> clazz) {
         return ServiceLoader.load(clazz)
-                .findFirst()
-                .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
+            .findFirst()
+            .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
     }
 }

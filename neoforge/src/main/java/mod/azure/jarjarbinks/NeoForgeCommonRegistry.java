@@ -1,6 +1,5 @@
 package mod.azure.jarjarbinks;
 
-import mod.azure.jarjarbinks.platform.services.CommonRegistry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -11,10 +10,16 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 
 import java.util.function.Supplier;
 
+import mod.azure.jarjarbinks.platform.services.CommonRegistry;
+
 public class NeoForgeCommonRegistry implements CommonRegistry {
 
     @Override
-    public <T extends Entity> Supplier<EntityType<T>> registerEntity(String modID, String entityName, Supplier<EntityType<T>> entity) {
+    public <T extends Entity> Supplier<EntityType<T>> registerEntity(
+        String modID,
+        String entityName,
+        Supplier<EntityType<T>> entity
+    ) {
         return NeoForgeMod.entityTypeDeferredRegister.register(entityName, entity);
     }
 
@@ -29,7 +34,12 @@ public class NeoForgeCommonRegistry implements CommonRegistry {
     }
 
     @Override
-    public <E extends Mob> Supplier<SpawnEggItem> makeSpawnEggFor(Supplier<EntityType<E>> entityType, int primaryEggColour, int secondaryEggColour, Item.Properties itemProperties) {
+    public <E extends Mob> Supplier<SpawnEggItem> makeSpawnEggFor(
+        Supplier<EntityType<E>> entityType,
+        int primaryEggColour,
+        int secondaryEggColour,
+        Item.Properties itemProperties
+    ) {
         return () -> new DeferredSpawnEggItem(entityType, primaryEggColour, secondaryEggColour, itemProperties);
     }
 }

@@ -1,6 +1,8 @@
 plugins {
+    id 'com.diffplug.spotless'
     id 'java-library'
     id 'maven-publish'
+    id 'idea'
 }
 
 base {
@@ -105,4 +107,30 @@ processResources {
         expand expandProps
     }
     inputs.properties(expandProps)
+}
+
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
+}
+
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+spotless {
+    java {
+        eclipse().configFile("$rootDir/eclipse-formatter.xml")
+        endWithNewline()
+        importOrder("", "java", group.toString(), "\\#")
+        indentWithSpaces(4)
+        removeUnusedImports()
+        trimTrailingWhitespace()
+    }
+}
+
+tasks.named('compileJava', JavaCompile) {
+    dependsOn("spotlessApply")
 }

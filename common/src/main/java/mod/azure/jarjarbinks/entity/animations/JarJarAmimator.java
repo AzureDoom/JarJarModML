@@ -1,14 +1,14 @@
 package mod.azure.jarjarbinks.entity.animations;
 
-import mod.azure.azurelib.common.internal.common.constant.DataTickets;
-import mod.azure.azurelib.rewrite.animation.controller.AzAnimationController;
-import mod.azure.azurelib.rewrite.animation.controller.AzAnimationControllerContainer;
-import mod.azure.azurelib.rewrite.animation.impl.AzEntityAnimator;
-import mod.azure.jarjarbinks.CommonMod;
-import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
+import mod.azure.azurelib.common.animation.controller.AzAnimationController;
+import mod.azure.azurelib.common.animation.controller.AzAnimationControllerContainer;
+import mod.azure.azurelib.common.animation.impl.AzEntityAnimator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import org.jetbrains.annotations.NotNull;
+
+import mod.azure.jarjarbinks.CommonMod;
+import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
 
 public class JarJarAmimator extends AzEntityAnimator<JarJarBinksEntity> {
 
@@ -17,14 +17,14 @@ public class JarJarAmimator extends AzEntityAnimator<JarJarBinksEntity> {
     @Override
     public void registerControllers(AzAnimationControllerContainer<JarJarBinksEntity> animationControllerContainer) {
         animationControllerContainer.add(
-                AzAnimationController.builder(this, "base_controller")
-                        .setTransitionLength(5)
-                        .build()
+            AzAnimationController.builder(this, "base_controller")
+                .setTransitionLength(5)
+                .build()
         );
         animationControllerContainer.add(
-                AzAnimationController.builder(this, "attack_controller")
-                        .setTransitionLength(5)
-                        .build()
+            AzAnimationController.builder(this, "attack_controller")
+                .setTransitionLength(5)
+                .build()
         );
     }
 
@@ -41,22 +41,46 @@ public class JarJarAmimator extends AzEntityAnimator<JarJarBinksEntity> {
         var rightarm = boneCache.getBakedModel().getBone("rightarm");
         var leftleg = boneCache.getBakedModel().getBone("leftleg");
         var rightleg = boneCache.getBakedModel().getBone("rightleg");
-        
+
         if (leftarm.isPresent() && !animatable.isAggressive()) {
-            leftarm.get().setRotX(Mth.cos(animatable.walkAnimation.position(
-                    partialTicks) * 0.6662F) * 2.0F * animatable.walkAnimation.speed() * 0.5F);
+            leftarm.get()
+                .setRotX(
+                    Mth.cos(
+                        animatable.walkAnimation.position(
+                            partialTicks
+                        ) * 0.6662F
+                    ) * 2.0F * animatable.walkAnimation.speed() * 0.5F
+                );
         }
         if (rightarm.isPresent() && !animatable.isAggressive()) {
-            rightarm.get().setRotX(Mth.cos(animatable.walkAnimation.position(
-                    partialTicks) * 0.6662F + 3.1415927F) * 2.0F * animatable.walkAnimation.speed() * 0.5F);
+            rightarm.get()
+                .setRotX(
+                    Mth.cos(
+                        animatable.walkAnimation.position(
+                            partialTicks
+                        ) * 0.6662F + 3.1415927F
+                    ) * 2.0F * animatable.walkAnimation.speed() * 0.5F
+                );
         }
         if (leftleg.isPresent()) {
-            leftleg.get().setRotX(Mth.cos(animatable.walkAnimation.position(
-                    partialTicks) * 0.6662F + 3.1415927F) * 1.4F * animatable.walkAnimation.speed() * 0.5F);
+            leftleg.get()
+                .setRotX(
+                    Mth.cos(
+                        animatable.walkAnimation.position(
+                            partialTicks
+                        ) * 0.6662F + 3.1415927F
+                    ) * 1.4F * animatable.walkAnimation.speed() * 0.5F
+                );
         }
         if (rightleg.isPresent()) {
-            rightleg.get().setRotX(Mth.cos(animatable.walkAnimation.position(
-                    partialTicks) * 0.6662F) * 1.4F * animatable.walkAnimation.speed() * 0.5F);
+            rightleg.get()
+                .setRotX(
+                    Mth.cos(
+                        animatable.walkAnimation.position(
+                            partialTicks
+                        ) * 0.6662F
+                    ) * 1.4F * animatable.walkAnimation.speed() * 0.5F
+                );
         }
     }
 }

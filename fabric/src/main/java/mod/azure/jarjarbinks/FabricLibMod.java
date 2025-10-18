@@ -1,10 +1,6 @@
 package mod.azure.jarjarbinks;
 
-import mod.azure.azurelib.common.internal.common.AzureLib;
-import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
-import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
-import mod.azure.jarjarbinks.registry.ModEntities;
-import mod.azure.jarjarbinks.registry.ModItems;
+import mod.azure.azurelib.AzureLib;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
@@ -15,6 +11,11 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.levelgen.Heightmap;
+
+import mod.azure.jarjarbinks.entity.DarthJarJarEntity;
+import mod.azure.jarjarbinks.entity.JarJarBinksEntity;
+import mod.azure.jarjarbinks.registry.ModEntities;
+import mod.azure.jarjarbinks.registry.ModItems;
 
 public final class FabricLibMod implements ModInitializer {
 
@@ -32,9 +33,33 @@ public final class FabricLibMod implements ModInitializer {
     }
 
     public static void addSpawnEntries() {
-        BiomeModifications.addSpawn(BiomeSelectors.tag(CommonMod.JARJAR_BIOMES), MobCategory.MONSTER, ModEntities.JARJAR.get(), 4, 1, 1);
-        BiomeModifications.addSpawn(BiomeSelectors.tag(CommonMod.DARTH_BIOMES), MobCategory.MONSTER, ModEntities.DARTHJARJAR.get(), 4, 1, 1);
-        SpawnPlacements.register(ModEntities.JARJAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn);
-        SpawnPlacements.register(ModEntities.DARTHJARJAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, JarJarBinksEntity::canSpawn);
+        BiomeModifications.addSpawn(
+            BiomeSelectors.tag(CommonMod.JARJAR_BIOMES),
+            MobCategory.MONSTER,
+            ModEntities.JARJAR.get(),
+            4,
+            1,
+            1
+        );
+        BiomeModifications.addSpawn(
+            BiomeSelectors.tag(CommonMod.DARTH_BIOMES),
+            MobCategory.MONSTER,
+            ModEntities.DARTHJARJAR.get(),
+            4,
+            1,
+            1
+        );
+        SpawnPlacements.register(
+            ModEntities.JARJAR.get(),
+            SpawnPlacementTypes.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            JarJarBinksEntity::canSpawn
+        );
+        SpawnPlacements.register(
+            ModEntities.DARTHJARJAR.get(),
+            SpawnPlacementTypes.ON_GROUND,
+            Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+            JarJarBinksEntity::canSpawn
+        );
     }
 }

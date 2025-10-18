@@ -1,12 +1,5 @@
 package mod.azure.jarjarbinks.entity;
 
-import mod.azure.azurelib.core.animation.AnimatableManager;
-import mod.azure.azurelib.core.animation.Animation;
-import mod.azure.azurelib.core.animation.AnimationController;
-import mod.azure.azurelib.core.animation.RawAnimation;
-import mod.azure.azurelib.core.object.PlayState;
-import mod.azure.jarjarbinks.entity.animations.AnimationDispatcher;
-import mod.azure.jarjarbinks.registry.ModSounds;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.damagesource.DamageSource;
@@ -20,6 +13,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.FluidState;
 import org.jetbrains.annotations.NotNull;
 
+import mod.azure.jarjarbinks.entity.animations.AnimationDispatcher;
+import mod.azure.jarjarbinks.registry.ModSounds;
+
 public class DarthJarJarEntity extends JarJarBinksEntity {
 
     public DarthJarJarEntity(EntityType<? extends JarJarBinksEntity> entityType, Level worldIn) {
@@ -29,12 +25,12 @@ public class DarthJarJarEntity extends JarJarBinksEntity {
 
     public static AttributeSupplier.@NotNull Builder createMobAttributes() {
         return LivingEntity.createLivingAttributes()
-                .add(Attributes.FOLLOW_RANGE, 50.0D)
-                .add(Attributes.MAX_HEALTH, 40.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.5D)
-                .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
-                .add(Attributes.MOVEMENT_SPEED, 0.35D)
-                .add(Attributes.ATTACK_DAMAGE, 1.5D);
+            .add(Attributes.FOLLOW_RANGE, 50.0D)
+            .add(Attributes.MAX_HEALTH, 40.0D)
+            .add(Attributes.ATTACK_KNOCKBACK, 0.5D)
+            .add(Attributes.KNOCKBACK_RESISTANCE, 0.5D)
+            .add(Attributes.MOVEMENT_SPEED, 0.35D)
+            .add(Attributes.ATTACK_DAMAGE, 1.5D);
     }
 
     @Override

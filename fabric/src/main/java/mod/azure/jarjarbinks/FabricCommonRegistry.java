@@ -1,6 +1,5 @@
 package mod.azure.jarjarbinks;
 
-import mod.azure.jarjarbinks.platform.services.CommonRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -13,16 +12,30 @@ import net.minecraft.world.item.SpawnEggItem;
 
 import java.util.function.Supplier;
 
+import mod.azure.jarjarbinks.platform.services.CommonRegistry;
+
 public class FabricCommonRegistry implements CommonRegistry {
 
-    private static <T, R extends Registry<? super T>> Supplier<T> registerSupplier(R registry, String modID, String id, Supplier<T> object) {
-        final T registeredObject = Registry.register((Registry<T>) registry,
-                ResourceLocation.fromNamespaceAndPath(modID, id), object.get());
+    private static <T, R extends Registry<? super T>> Supplier<T> registerSupplier(
+        R registry,
+        String modID,
+        String id,
+        Supplier<T> object
+    ) {
+        final T registeredObject = Registry.register(
+            (Registry<T>) registry,
+            ResourceLocation.fromNamespaceAndPath(modID, id),
+            object.get()
+        );
         return () -> registeredObject;
     }
 
     @Override
-    public <T extends Entity> Supplier<EntityType<T>> registerEntity(String modID, String entityName, Supplier<EntityType<T>> entity) {
+    public <T extends Entity> Supplier<EntityType<T>> registerEntity(
+        String modID,
+        String entityName,
+        Supplier<EntityType<T>> entity
+    ) {
         return registerSupplier(BuiltInRegistries.ENTITY_TYPE, modID, entityName, entity);
     }
 
@@ -37,7 +50,12 @@ public class FabricCommonRegistry implements CommonRegistry {
     }
 
     @Override
-    public <E extends Mob> Supplier<SpawnEggItem> makeSpawnEggFor(Supplier<EntityType<E>> entityType, int primaryEggColour, int secondaryEggColour, Item.Properties itemProperties) {
+    public <E extends Mob> Supplier<SpawnEggItem> makeSpawnEggFor(
+        Supplier<EntityType<E>> entityType,
+        int primaryEggColour,
+        int secondaryEggColour,
+        Item.Properties itemProperties
+    ) {
         return () -> new SpawnEggItem(entityType.get(), primaryEggColour, secondaryEggColour, itemProperties);
     }
 }
