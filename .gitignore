@@ -34,3 +34,4 @@ runs
 forge*changelog.txt
 build.bat
 *.bat
+.profileconfig.json
