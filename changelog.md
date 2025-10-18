@@ -1,4 +1,3 @@
-v1.0.8
+v1.0.9
 
-- Updated to Azurelib 3.0.7 changes.
-- Updated Offhand rendering display.
+- Updated to Azurelib 3.1.0 changes.
